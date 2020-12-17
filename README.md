@@ -1,7 +1,7 @@
 # johnny-five-node-with-arduino-react
-A NodeJS Arduino integration with SlackBot.
+A NodeJS Arduino play play with React webpage.
 
-I wanted to make my Arduino flash certain green or red LEDs, triggered via our deploy's success or failure slack messages.
+I wanted to make my Arduino flash certain green or red LEDs, triggered by certain sensors and then show that on a react app.
 
 Creating a Mashup of:
 

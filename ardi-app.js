@@ -30,12 +30,13 @@ board.on("ready", function() {
 
   let index = 0;
   const rainbow = ["FF0000", "FF7F00", "FFFF00", "00FF00", "0000FF", "4B0082", "8F00FF"];
+  // Raibow RGA LED
   const rgbOn = new five.Leds([12]);
+  // Array of the single LEDs.
   const array = new five.Leds([3, 5, 6]);
   const blue = new five.Leds([3]);
   const green = new five.Leds([5]);
   const red = new five.Leds([6]);
-  const deployComplete = new five.Leds([3, 5]);
 
   const rainbox = function () {
     rgbOn.on();
@@ -71,4 +72,11 @@ board.on("ready", function() {
   rainbox();
 
   pulseLed(array);
+
+  board.on("exit", () => {
+    led.off();
+    colour.stop().off();
+    rgbOn.off();
+    array.stop().off();
+  });
 });

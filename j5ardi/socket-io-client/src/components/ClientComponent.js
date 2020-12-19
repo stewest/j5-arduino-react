@@ -36,7 +36,7 @@ export default function ClientComponent() {
 
   if (light.item === 'light') {
     lightVar = light.msg;
-    lightNumb = parseFloat(lightVar / 6.1).toFixed(2);
+    lightNumb = parseFloat(lightVar / 10.24).toFixed(2);
     luminosity = lightNumb;
   }
 

@@ -34,13 +34,13 @@ export default function ClientComponent() {
   }
 
   return (
-    <>
-      <div className="light">
+    <div className="grid">
+      <div className="item light">
         Light: {lightVar}
       </div>
-      <div className="led">
+      <div className="item led">
         LED: {ledStatus}
       </div>
-    </>
+    </div>
   );
 }

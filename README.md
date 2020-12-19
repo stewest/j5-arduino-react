@@ -21,19 +21,24 @@ Creating a Mashup of:
 If the upload was successful, the board is now prepared and you can close the Arduino IDE.
 
 Then each from their own terminal:
-- Terminal 1
--- cd socket-io-server
--- yarn install
--- node app.js
 
-- Terminal 2
--- cd socket-io-client
--- yarn install
--- yarn start
+    Terminal 1:
+    - cd socket-io-server
+    - yarn install
+    - node app.js
 
-While developing, as the client and server use specific ports, you may need to stop of all nodes.
+    Terminal 2:
+    - cd socket-io-client
+    - yarn install
+    - yarn start
+
+While developing, as the client and server use specific ports, you may need to stop of all nodes and restart.
 - `killall -9 node` in the socket-io-server folder and restart both the server `node app.js` and `yarn start` the client.
 
+## What does it do?
+- You should see a Socket.io Button, that temporarily stops the client from connecting to the socker server.
+- There is a "light" sensor showing the amount of light data from from the photo resistor.
+- When the Arduino board first starts it has some LEDs flashing. The LED status is shown as on or off.
 
 ## References:
 - http://johnny-five.io/api/led.rgb/

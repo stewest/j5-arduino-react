@@ -1,14 +1,15 @@
-# johnny-five-node-with-arduino-react
+# Johnny Five Node JS server with Socket.io connecting Arduino to React
 A NodeJS Arduino play play with React webpage.
 
-I wanted to make my Arduino flash certain green or red LEDs, triggered by certain sensors and then show that on a react app.
+I wanted to make my Arduino flash certain green or red LEDs, triggered by certain sensors and then show that in a React app.
 
 Creating a Mashup of:
 
 https://github.com/rwaldron/johnny-five
 - The JavaScript Robotics Programming Framework
-
-What to do:
+and
+https://www.valentinog.com/blog/socket-react/
+## What to do:
 
     From https://github.com/rwaldron/johnny-five#setup-and-assemble-arduino
     - Download Arduino IDE
@@ -19,12 +20,24 @@ What to do:
 
 If the upload was successful, the board is now prepared and you can close the Arduino IDE.
 
-Then from this repo:
-- npm install
+Then each from their own terminal:
+- Terminal 1
+-- cd socket-io-server
+-- yarn install
+-- node app.js
 
-Run:
-- node ardi-app.js
+- Terminal 2
+-- cd socket-io-client
+-- yarn install
+-- yarn start
 
-References:
+While developing, as the client and server use specific ports, you may need to stop of all nodes.
+- `killall -9 node` in the socket-io-server folder and restart both the server `node app.js` and `yarn start` the client.
+
+
+## References:
 - http://johnny-five.io/api/led.rgb/
 - http://johnny-five.io/examples/photoresistor/
+- https://stackabuse.com/using-global-variables-in-node-js/
+- https://www.valentinog.com/blog/socket-react/
+- https://socket.io/docs/v3/index.html

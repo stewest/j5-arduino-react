@@ -6,3 +6,4 @@ wip/
 release
 coverage
 .env
+.eslintcache

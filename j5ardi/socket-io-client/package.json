@@ -11,8 +11,7 @@
     "react-scripts": "4.0.1",
     "socket.io-client": "^3.0.4",
     "web-vitals": "^0.2.4",
-    "dotenv": "^8.2.0",
-    "johnny-five": "^1.4.0"
+    "dotenv": "^8.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

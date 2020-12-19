@@ -7,7 +7,9 @@ const port = process.env['PORT'];
 const local = process.env['CORSLOCAL'];
 const index = require("./routes/index");
 const app = express();
+
 app.use(index);
+
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
@@ -35,6 +37,7 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("Client disconnected");
     clearInterval(interval);
+    socket.offAny();
   });
 });
 
@@ -62,13 +65,25 @@ function getLED() {
   return global.ledStatus;
 }
 
+function setTEMP(c, f) {
+  global.tempStatus = {
+    c, f
+  };
+};
+
+function getTEMP() {
+  return global.tempStatus;
+}
+
 const getApiAndEmit = (socket) => {
   const light = getLight();
   const led = getLED();
+  const temp = getTEMP();
 
   // Emitting a new message. Will be consumed by the client
   socket.emit("FromLight", light);
   socket.emit("FromLed", led);
+  socket.emit("FromTemp", temp);
 };
 
 server.listen(port, () => console.log(`Listening on port ${port}`));
@@ -85,9 +100,8 @@ board.on("ready", function () {
     freq: 5000
   });
 
-  // "data" get the current reading from the photoresistor
+  //// "data" get the current reading from the photoresistor
   photoresistor.on("data", () => {
-    console.log(photoresistor.value);
     setLight('light', photoresistor.value)
   });
 
@@ -124,11 +138,11 @@ board.on("ready", function () {
    */
   const pulseLed = function (colour) {
     colour.pulse();
-    setLED('led', "ON")
+    setLED('led', true);
 
     setTimeout(function () {
       colour.stop().off();
-      setLED('led', "OFF")
+      setLED('led', false)
     }, 5000);
   }
 
@@ -143,6 +157,17 @@ board.on("ready", function () {
     rgbOn.off();
     // Turn off each led in the array of individual leds.
     array.stop().off();
+  });
+
+
+  const thermometer = new five.Thermometer({
+    controller: "LM35",
+    pin: "A5"
+  });
+
+  thermometer.on("change", () => {
+    const {celsius, fahrenheit} = thermometer;
+    setTEMP(celsius / 10, fahrenheit / 10);
   });
 
 });

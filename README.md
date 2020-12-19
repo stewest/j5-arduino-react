@@ -5,10 +5,10 @@ I wanted to make my Arduino flash certain green or red LEDs, triggered by certai
 
 Creating a Mashup of:
 
-https://github.com/rwaldron/johnny-five
-- The JavaScript Robotics Programming Framework
-and
-https://www.valentinog.com/blog/socket-react/
+- https://github.com/rwaldron/johnny-five
+
+
+- https://www.valentinog.com/blog/socket-react/
 ## What to do:
 
     From https://github.com/rwaldron/johnny-five#setup-and-assemble-arduino

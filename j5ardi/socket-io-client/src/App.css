@@ -60,7 +60,7 @@
 }
 
 .light {
-  background-color: #fff286;
+  background-color: aliceblue;
   border-radius: 50% 50% 30px 30px;
   width: 100%;
   height: 100%;
@@ -90,7 +90,7 @@
   display: block;
   position: absolute;
   width: 100%;
-  background: aliceblue;
+  background: #fff286;
   bottom: 0;
   z-index: 2;
   transition: height 0.3 ease-in-out;
@@ -105,6 +105,10 @@
   width: 30px;
   height: 30px;
   margin: 10px auto 0;
+}
+
+.toggle-led {
+  margin-top: 10px;
 }
 
 .led-red {

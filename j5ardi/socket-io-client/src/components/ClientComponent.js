@@ -7,6 +7,7 @@ export default function ClientComponent() {
   const [light, setLight] = useState("");
   const [led, setLed] = useState("");
   const [temp, setTemp] = useState("");
+  const [changedLED, toggleLED] = useState("");
 
   const ENDPOINT = process.env.REACT_APP_ENDPOINT;
 
@@ -25,7 +26,9 @@ export default function ClientComponent() {
       setTemp(data);
     });
 
-  }, [ENDPOINT]);
+    socket.emit("handleLED", changedLED);
+
+  }, [ENDPOINT, changedLED]);
 
   let lightVar = 'OFF';
   let luminosity;
@@ -36,7 +39,7 @@ export default function ClientComponent() {
 
   if (light.item === 'light') {
     lightVar = light.msg;
-    lightNumb = parseFloat(lightVar / 10.24).toFixed(2);
+    lightNumb = 100 - (parseFloat(lightVar / 10.24).toFixed(0));
     luminosity = lightNumb;
   }
 
@@ -50,7 +53,11 @@ export default function ClientComponent() {
 
   if (temp.c || temp.f) {
     temperatureC = temp.c;
-    temperatureF = parseFloat((temp.c * 9 / 5) + 32).toFixed(2);
+    temperatureF = parseFloat((temp.c * 9 / 5) + 32).toFixed(1);
+  }
+
+  function handleLED() {
+    toggleLED(prevState => !prevState);
   }
 
   return (
@@ -65,7 +72,8 @@ export default function ClientComponent() {
         LEDs: {ledStatus ? 'ON':'OFF'}
         {ledStatus ? <div className="led-red is-on"></div> : <div className="led-red"></div> }
         {ledStatus ? <div className="led-green is-on"></div> : <div className="led-green"></div> }
-        {ledStatus ? <div className="led-blue is-on"></div> : <div className="led-blue"></div> }
+        {ledStatus ? <div className="led-blue is-on"></div> : <div className="led-blue"></div>}
+        <button className="toggle-led" onClick={handleLED}>Toggle LED</button>
       </div>
 
       <div className="item temp"><h3>TEMP:</h3><br />

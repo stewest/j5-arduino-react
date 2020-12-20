@@ -5,15 +5,19 @@ const socketIo = require("socket.io");
 require('dotenv').config();
 const port = process.env['PORT'];
 const local = process.env['CORSLOCAL'];
+
 const index = require("./routes/index");
 const app = express();
+
+const events = require('events');
+const eventEmitter = new events.EventEmitter();
 
 app.use(index);
 
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    // you may need to change this if the client starts on a different port
+    // You may need to change this in .ENV if the client starts on a different port.
     origin: local,
     methods: ["GET", "POST"]
   },
@@ -34,16 +38,24 @@ io.on("connection", (socket) => {
 
   interval = setInterval(() => getApiAndEmit(socket), 1000);
 
+  socket.on("handleLED", (arg) => {
+    console.log("toggleLED", arg);
+
+    // Fire the 'toggleLED' event.
+    eventEmitter.emit('toggleLED');
+  });
+
   socket.on("disconnect", () => {
     console.log("Client disconnected");
     clearInterval(interval);
-    socket.offAny();
+    socket.off();
   });
 });
 
 // https://stackabuse.com/using-global-variables-in-node-js/
 global.lightStatus = {};
 global.ledStatus = {};
+global.tempStatus = {};
 
 function setLight(item, msg) {
   global.lightStatus = {
@@ -100,7 +112,7 @@ board.on("ready", function () {
     freq: 5000
   });
 
-  //// "data" get the current reading from the photoresistor
+  // "data" is the current reading from the photoresistor.
   photoresistor.on("data", () => {
     setLight('light', photoresistor.value)
   });
@@ -132,11 +144,10 @@ board.on("ready", function () {
   }
 
   /**
-   *
    * @param {*} colour
    * usage example: pulseLed(green);
    */
-  const pulseLed = function (colour) {
+  const pulseLed = function (colour = array) {
     colour.pulse();
     setLED('led', true);
 
@@ -146,19 +157,14 @@ board.on("ready", function () {
     }, 5000);
   }
 
-  // Turn on Rainbow.
-  // To turn off: array.stop().off();
+  // Turn on Rainbow at start.
   rainbox();
 
+  // Turn on Array of LEDs at start.
   pulseLed(array);
 
-  board.on("exit", () => {
-    // Turn off the rgb LED.
-    rgbOn.off();
-    // Turn off each led in the array of individual leds.
-    array.stop().off();
-  });
-
+  //Assign the event handler to an event:
+  eventEmitter.on('toggleLED', pulseLed);
 
   const thermometer = new five.Thermometer({
     controller: "LM35",
@@ -170,4 +176,10 @@ board.on("ready", function () {
     setTEMP(celsius / 10, fahrenheit / 10);
   });
 
+  board.on("exit", () => {
+    // Turn off the rgb LED.
+    rgbOn.off();
+    // Turn off each led in the array of individual leds.
+    array.stop().off();
+  });
 });

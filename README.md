@@ -20,7 +20,9 @@ Creating a Mashup of:
 
 If the upload was successful, the board is now prepared and you can close the Arduino IDE.
 
-Then each from their own terminal:
+    - Git clone https://github.com/stewest/j5-arduino-react.git and cd j5-arduino-react
+    
+Then each from their own separate terminal:
 
     Terminal 1:
     - cd socket-io-server

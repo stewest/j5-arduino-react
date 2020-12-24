@@ -40,6 +40,9 @@ While developing, as the client and server use specific ports, you may need to s
 - There is a "light" sensor showing the amount of light data from from the photo resistor.
 - When the Arduino board first starts it has some LEDs flashing. The LED status is shown as on or off.
 
+## See the Instructable:
+https://www.instructables.com/Arduino-JohnnyFive-Socketio-and-React/
+
 ## References:
 - http://johnny-five.io/api/led.rgb/
 - http://johnny-five.io/examples/photoresistor/

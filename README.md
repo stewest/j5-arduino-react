@@ -21,6 +21,7 @@ Creating a Mashup of:
 If the upload was successful, the board is now prepared and you can close the Arduino IDE.
 
     - Git clone https://github.com/stewest/j5-arduino-react.git and cd j5-arduino-react
+    - You'll need node version 12 or more (with yarn installed or npm).
     
 Then each from their own separate terminal:
 

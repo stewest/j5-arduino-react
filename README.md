@@ -20,7 +20,10 @@ Creating a Mashup of:
 
 If the upload was successful, the board is now prepared and you can close the Arduino IDE.
 
-Then each from their own terminal:
+    - Git clone https://github.com/stewest/j5-arduino-react.git and cd j5-arduino-react
+    - You'll need node version 12 or more (with yarn installed or npm).
+    
+Then each from their own separate terminal:
 
     Terminal 1:
     - cd socket-io-server
@@ -39,6 +42,9 @@ While developing, as the client and server use specific ports, you may need to s
 - You should see a Socket.io Button, that temporarily stops the client from connecting to the socker server.
 - There is a "light" sensor showing the amount of light data from from the photo resistor.
 - When the Arduino board first starts it has some LEDs flashing. The LED status is shown as on or off.
+
+## See the Instructable:
+https://www.instructables.com/Arduino-JohnnyFive-Socketio-and-React/
 
 ## References:
 - http://johnny-five.io/api/led.rgb/
